@@ -4,8 +4,16 @@ import {View, Text} from 'react-native';
 export default class Main extends Component {
 
     static navigationOptions = {
-        title: "Página Inicial"
+        title: "Página Inicial",
+        headerStyle: {
+            backgroundColor: '#DA552F',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        }
     }
+    
     render() {
         return (
             <View>
