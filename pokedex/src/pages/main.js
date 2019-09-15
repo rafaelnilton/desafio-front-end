@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {getPokemons} from "../services/pokemonsService";
+import { Avatar } from 'react-native-elements';
 
 export default class Main extends Component {
 
     static navigationOptions = {
         title: "Pokedex",
         headerStyle: {
-            backgroundColor: '#DA552F',
+            backgroundColor: '#E3350D',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -28,7 +29,7 @@ export default class Main extends Component {
 
     loadPokemons = async (page = 1) => {
         await getPokemons(page).then((res) => {
-            this.setState({data: [...this.state.data, ...res.docs], page})
+            this.setState({data: [...this.state.data, ...res.results], page})
         })
         .catch(async (error) => {
             console.log(error)
@@ -37,13 +38,29 @@ export default class Main extends Component {
 
     renderItem = ({item}) => (
         <View style={styles.itemContainer}>
-            <Text style={styles.itemTitle}>{item.title}</Text>
-            <Text style={styles.itemDescription}>{item.description}</Text>
+            <View style={styles.alignCenter}>
+                <Text style={styles.itemTitle}>{item.name}</Text>
+            </View>
+            <View style={styles.img}>
+                <Avatar
+                    title="POKEMON"
+                    size="xlarge"
+                    rounded
+                    source={{
+                        uri:
+                        'https://images-na.ssl-images-amazon.com/images/I/51sGFjgn2VL._SX466_.jpg',
+                    }
+                }
+                    
+                />
+            </View>
             <TouchableOpacity
                 style={styles.showButton}
-                onPress={() => {}}
+                onPress={() => {
+                    this.props.navigation.navigate('PokemonView', {item: item})
+                }}
             >
-                <Text style={styles.textButton}>Show</Text>
+                <Text style={styles.textButton}>Open</Text>
             </TouchableOpacity>
 
         </View>
@@ -57,6 +74,7 @@ export default class Main extends Component {
         const pageNumber = page + 1;
         this.loadPokemons(pageNumber);
     }
+
     render() {
         console.disableYellowBox = true;
         return (
@@ -64,7 +82,6 @@ export default class Main extends Component {
                 <FlatList
                 style={styles.list}
                 data={this.state.data}
-                keyExtractor={item => item._id}
                 renderItem={this.renderItem}
                 onEndReached={this.loadMore}
                 onEndReachedThreshold={0.1}
@@ -89,12 +106,20 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         padding: 20,
-        marginBottom: 20
+        marginBottom: 20,
     },
     itemTitle: {
-        fontSize: 18,
+        fontSize: 22,
         color: "#333",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginTop: 10,
+        marginBottom:10,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    alignCenter: {
+        justifyContent: "center",
+        alignItems: "center"
     },
     itemDescription: {
         fontSize: 18,
@@ -104,7 +129,7 @@ const styles = StyleSheet.create({
     },
     showButton: {
         height: 40,
-        backgroundColor: '#DA552F',
+        backgroundColor: '#E3350D',
         borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",
@@ -113,6 +138,10 @@ const styles = StyleSheet.create({
     textButton: {
         color: "white",
         fontWeight: "bold"
+    },
+    img: {
+        justifyContent: "center",
+        alignItems: "center",
     }
 
 
