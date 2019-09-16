@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {getPokemons} from "../services/pokemonsService";
-import { Avatar } from 'react-native-elements';
+import { Avatar, SearchBar } from 'react-native-elements';
 
 export default class Main extends Component {
 
@@ -17,9 +17,11 @@ export default class Main extends Component {
     }
 
     state = {
+        searchText: "",
         data: [],
         details: [],
-        page: 1
+        page: 1,
+        filteredData: []
     }
 
 
@@ -36,9 +38,15 @@ export default class Main extends Component {
         });
     }
 
-    SearchFilter(text) {
-        
-    }
+    search = (searchText) => {
+        this.setState({searchText: searchText});
+      
+        let filteredData = this.state.data.filter(function (item) {
+          return item.name.includes(searchText);
+        });
+      
+        this.setState({filteredData: filteredData});
+      };
 
     renderItem = ({item}) => (
         <View style={styles.itemContainer}>
@@ -72,12 +80,13 @@ export default class Main extends Component {
     )
     
     loadMore = () => {
-
-        const {page, details} = this.state;
-        if(page === details.pages) return;
-
-        const pageNumber = page + 1;
-        this.loadPokemons(pageNumber);
+        if(this.state.filteredData.length === 0) {
+            const {page, details} = this.state;
+            if(page === details.pages) return;
+    
+            const pageNumber = page + 1;
+            this.loadPokemons(pageNumber);
+        }
     }
 
     render() {
@@ -85,20 +94,24 @@ export default class Main extends Component {
         return (
            
             <View style={styles.container}>
-                 <TextInput 
-                    style={styles.TextInputStyleClass}
-                    onChangeText={(text) => this.searchFilter(text)}
-                    value={this.state.text}
-                    underlineColorAndroid='transparent'
+                <SearchBar
+                    round={true}
+                    lightTheme={true}
                     placeholder="Search pokemon"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    onChangeText={this.search}
+                    value={this.state.searchText}
                 />
+
                 <FlatList
-                style={styles.list}
-                data={this.state.data}
-                renderItem={this.renderItem}
-                onEndReached={this.loadMore}
-                onEndReachedThreshold={0.1}
+                    data={this.state.filteredData && this.state.filteredData.length > 0 ? this.state.filteredData : this.state.data}
+                    keyExtractor={(item) => `item-${item.id}`}
+                    renderItem={this.renderItem}
+                    onEndReached={this.loadMore}
+                    onEndReachedThreshold={0.1}
                 />
+               
             </View>
         )
     }
