@@ -1,5 +1,6 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import Main from './pages/main';
 import PokemonView from './pages/PokemonView';
@@ -17,6 +18,15 @@ const NavStack = createStackNavigator({
     }
 })
 
-const App = createAppContainer(NavStack);
+
+
+const App =  createAppContainer(
+    createBottomTabNavigator(
+      {
+        NavStack
+      }
+    )
+);
 
 export default App;
+
