@@ -42,13 +42,7 @@ export default class Main extends Component {
 
     renderItem = ({item}) => (
         <View style={styles.itemContainer}>
-            <TextInput 
-                style={styles.TextInputStyleClass}
-                onChangeText={(text) => this.searchFilter(text)}
-                value={this.state.text}
-                underlineColorAndroid='transparent'
-                placeholder="Search pokemon"
-                    />
+            
             <View style={styles.alignCenter}>
                 <Text style={styles.itemTitle}>{item.name}</Text>
             </View>
@@ -89,7 +83,15 @@ export default class Main extends Component {
     render() {
         console.disableYellowBox = true;
         return (
+           
             <View style={styles.container}>
+                 <TextInput 
+                    style={styles.TextInputStyleClass}
+                    onChangeText={(text) => this.searchFilter(text)}
+                    value={this.state.text}
+                    underlineColorAndroid='transparent'
+                    placeholder="Search pokemon"
+                />
                 <FlatList
                 style={styles.list}
                 data={this.state.data}
