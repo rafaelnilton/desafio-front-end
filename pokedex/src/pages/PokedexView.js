@@ -3,10 +3,10 @@ import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {getPokemons} from "../services/pokemonsService";
 import { Avatar } from 'react-native-elements';
 
-export default class Main extends Component {
+export default class Pokedex extends Component {
 
     static navigationOptions = {
-        title: "Pokemons",
+        title: "Pokedex",
         headerStyle: {
             backgroundColor: '#E3350D',
         },
@@ -36,19 +36,8 @@ export default class Main extends Component {
         });
     }
 
-    SearchFilter(text) {
-        
-    }
-
     renderItem = ({item}) => (
         <View style={styles.itemContainer}>
-            <TextInput 
-                style={styles.TextInputStyleClass}
-                onChangeText={(text) => this.searchFilter(text)}
-                value={this.state.text}
-                underlineColorAndroid='transparent'
-                placeholder="Search pokemon"
-                    />
             <View style={styles.alignCenter}>
                 <Text style={styles.itemTitle}>{item.name}</Text>
             </View>

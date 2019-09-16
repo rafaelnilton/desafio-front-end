@@ -35,9 +35,6 @@ export default class Pokemon extends Component {
     }
 }
 
-
-
-
 const styles = StyleSheet.create({
     img: {
         justifyContent: "center",
