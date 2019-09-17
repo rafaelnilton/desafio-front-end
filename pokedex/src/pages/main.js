@@ -33,7 +33,7 @@ export default class Main extends Component {
                 setTimeout(() => {
                     // SoundPlayer.playSoundFile('catching', 'mp3');
                     setTimeout(() => { 
-                        this.props.navigation.navigate('PokemonView', {item: item})
+                        // this.props.navigation.navigate('PokemonView', {item: item})
                     },1000);
                 }, 2000)
             } catch (e) {
