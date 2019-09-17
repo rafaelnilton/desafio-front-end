@@ -21,11 +21,7 @@ const NavStack = createStackNavigator({
 
 
 const App =  createAppContainer(
-    createBottomTabNavigator(
-      {
-        NavStack
-      }
-    )
+    NavStack
 );
 
 export default App;

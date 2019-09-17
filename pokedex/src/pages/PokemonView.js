@@ -53,7 +53,6 @@ export default class Pokemon extends Component {
             <View>
                 <View style={styles.img}>
                     <Avatar
-                        title="POKEMON"
                         size="xlarge"
                         rounded
                         source={{

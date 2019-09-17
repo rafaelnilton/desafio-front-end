@@ -3,6 +3,7 @@ import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {getPokemons} from "../services/pokemonsService";
 import { Avatar, SearchBar } from 'react-native-elements';
 import SoundPlayer from 'react-native-sound-player';
+import Tabs from '../components/Tabs/Tabs';
 
 export default class Main extends Component {
 
@@ -144,6 +145,8 @@ export default class Main extends Component {
                     onEndReached={this.loadMore}
                     onEndReachedThreshold={0.1}
                 />
+
+                <Tabs/>
                
             </View>
         )
