@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {getPokemons} from "../services/pokemonsService";
 import { Avatar, SearchBar } from 'react-native-elements';
+import SoundPlayer from 'react-native-sound-player';
 
 export default class Main extends Component {
 
@@ -25,6 +26,31 @@ export default class Main extends Component {
     }
 
 
+    capturar(item) {
+        try {
+            // play the file tone.mp3
+            SoundPlayer.playSoundFile('trying', 'mp3');
+
+            try {
+                // play the file tone.mp3
+                setTimeout(() => {
+                    SoundPlayer.playSoundFile('catching', 'mp3');
+                    setTimeout(() => { 
+                        this.props.navigation.navigate('PokemonView', {item: item})
+                    },1000);
+                }, 2000)
+                
+               
+            } catch (e) {
+                console.log(`cannot play the sound file`, e)
+            }
+           
+        } catch (e) {
+            console.log(`cannot play the sound file`, e)
+        }
+    }
+
+
     componentDidMount() {
         this.loadPokemons()
     }
@@ -36,6 +62,18 @@ export default class Main extends Component {
         .catch(async (error) => {
             console.log(error)
         });
+    }
+
+    randomImg() {
+        let images = [
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG111.png',
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG125.png',
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG113.png',
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG161.png',
+            'https://clipart.info/images/ccovers/1528080659Pokemon-PNG-Image.png'
+        ]
+
+        return images[Math.floor(Math.random() * images.length)]
     }
 
     search = (searchText) => {
@@ -56,12 +94,12 @@ export default class Main extends Component {
             </View>
             <View style={styles.img}>
                 <Avatar
-                    title="POKEMON"
+                    title=""
                     size="xlarge"
                     rounded
                     source={{
                         uri:
-                        'https://images-na.ssl-images-amazon.com/images/I/51sGFjgn2VL._SX466_.jpg',
+                        this.randomImg(),
                     }
                 }
                     
@@ -69,9 +107,7 @@ export default class Main extends Component {
             </View>
             <TouchableOpacity
                 style={styles.showButton}
-                onPress={() => {
-                    this.props.navigation.navigate('PokemonView', {item: item})
-                }}
+                onPress={() => { this.capturar(item)}}
             >
                 <Text style={styles.textButton}>Capturar</Text>
             </TouchableOpacity>

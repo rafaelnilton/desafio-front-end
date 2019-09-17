@@ -14,6 +14,18 @@ export default class Pokemon extends Component {
         }
     })
 
+    randomImg() {
+        let images = [
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG111.png',
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG125.png',
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG113.png',
+            'http://pngimg.com/uploads/pokemon/pokemon_PNG161.png',
+            'https://clipart.info/images/ccovers/1528080659Pokemon-PNG-Image.png'
+        ]
+
+        return images[Math.floor(Math.random() * images.length)]
+    }
+
     render (){
         return(
             <View>
@@ -24,7 +36,7 @@ export default class Pokemon extends Component {
                         rounded
                         source={{
                             uri:
-                            'https://images2.alphacoders.com/566/566368.jpg',
+                            this.randomImg(),
                         }
                     }
                         
