@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {getPokemons} from "../services/pokemonsService";
 import { Avatar, SearchBar } from 'react-native-elements';
-// import SoundPlayer from 'react-native-sound-player';
+import SoundPlayer from 'react-native-sound-player';
 
 export default class Main extends Component {
 
@@ -28,12 +28,12 @@ export default class Main extends Component {
 
     capturar(item) {
         try {
-            // SoundPlayer.playSoundFile('trying', 'mp3');
+            SoundPlayer.playSoundFile('trying', 'mp3');
             try {
                 setTimeout(() => {
-                    // SoundPlayer.playSoundFile('catching', 'mp3');
+                    SoundPlayer.playSoundFile('catching', 'mp3');
                     setTimeout(() => { 
-                        // this.props.navigation.navigate('PokemonView', {item: item})
+                        this.props.navigation.navigate('PokemonView', {item: item})
                     },1000);
                 }, 2000)
             } catch (e) {
@@ -99,12 +99,15 @@ export default class Main extends Component {
                     
                 />
             </View>
-            <TouchableOpacity
-                style={styles.showButton}
-                onPress={() => { this.capturar(item)}}
-            >
-                <Text style={styles.textButton}>Capturar</Text>
-            </TouchableOpacity>
+            <View style={styles.alignCenter}>
+                <TouchableOpacity
+                    style={styles.showButton}
+                    onPress={() => { this.capturar(item)}}
+                >
+                    <Text style={styles.textButton}>Capturar</Text>
+                </TouchableOpacity>
+            </View>
+
 
         </View>
     )
@@ -184,12 +187,16 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     showButton: {
-        height: 40,
+        flexDirection: 'row',
         backgroundColor: '#E3350D',
-        borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 10
+        width: 220,
+        height: 45,
+        borderWidth: 1,
+        borderColor: '#fff',
+        borderRadius: 100,
+        marginTop: 15,
     },
     textButton: {
         color: "white",

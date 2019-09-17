@@ -21,6 +21,7 @@ export default class Pokedex extends Component {
         details: [],
         page: 1
     }
+    
 
     componentDidMount() {
         this.loadPokemons()

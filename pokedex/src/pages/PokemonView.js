@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Avatar} from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 
 export default class Pokemon extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -38,10 +39,12 @@ export default class Pokemon extends Component {
                             uri:
                             this.randomImg(),
                         }
-                    }
-                        
-                    />
+                    }/>
+                     <Animatable.Text style={styles.animation} animation="slideInDown">
+                        <Text style={styles.title}>Pokemon capturado com sucesso!</Text>
+                    </Animatable.Text>
                 </View>
+               
             </View>
         )
     }
@@ -51,6 +54,16 @@ const styles = StyleSheet.create({
     img: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        marginTop: 20
+    },
+    title: {
+        fontSize: 18,
+        color: "#999",
+        lineHeight: 24,
+        marginTop: 5
+    },
+    animation: {
+        marginTop: 20
     }
 })
