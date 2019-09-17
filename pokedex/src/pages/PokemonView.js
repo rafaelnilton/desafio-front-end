@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {Avatar} from 'react-native-elements';
+import {Avatar, ListItem} from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import {getPokemonsById} from "../services/pokemonsService";
 
 export default class Pokemon extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -14,6 +15,26 @@ export default class Pokemon extends Component {
             fontWeight: 'bold',
         }
     })
+
+    state = {
+        data: [],
+    }
+
+    componentDidMount() {
+        this.loadPokemon()
+    }
+
+    loadPokemon = async (id = 1) => {
+        await getPokemonsById(id).then((res) => {
+            this.setState({data: res})
+            console.log("Pokemon: ", res);
+        })
+        .catch(async (error) => {
+            console.log(error)
+        });
+    }
+
+
 
     randomImg() {
         let images = [
@@ -44,6 +65,28 @@ export default class Pokemon extends Component {
                         <Text style={styles.title}>Pokemon capturado com sucesso!</Text>
                     </Animatable.Text>
                 </View>
+                <View>
+                    <ListItem
+                        title="Peso"
+                        subtitle={this.state.data.weight}
+                        bottomDivider
+                    />
+                     <ListItem
+                        title="Tamanho"
+                        subtitle={this.state.data.height}
+                        bottomDivider
+                    />
+                    
+                        {
+                            this.state.data.abilities ? this.state.data.abilities.map((item) => (
+                            <ListItem
+                                title={item.ability.name}
+                                subtitle={item.slot}
+                                bottomDivider
+                            />
+                            )) : <Text>O pokemon não possui habilidades!</Text>
+                        }
+                </View>
                
             </View>
         )
@@ -59,7 +102,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        color: "#999",
+        color: "#E3350D",
         lineHeight: 24,
         marginTop: 5
     },

@@ -6,8 +6,8 @@ export const getPokemons = (page) => {
         .then(res => res)
 }
 
-export const getPokemonsWithParams = (page) => {
-    return api.get(`/pokemon/?offset=${page}&limit=20`)
+export const getPokemonsById = (id) => {
+    return api.get(`/pokemon/${id}`)
         .then(res => res.data)
         .then(res => res)
 }
