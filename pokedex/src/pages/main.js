@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {getPokemons} from "../services/pokemonsService";
 import { Avatar, SearchBar } from 'react-native-elements';
-import SoundPlayer from 'react-native-sound-player';
+// import SoundPlayer from 'react-native-sound-player';
 
 export default class Main extends Component {
 
@@ -28,23 +28,17 @@ export default class Main extends Component {
 
     capturar(item) {
         try {
-            // play the file tone.mp3
-            SoundPlayer.playSoundFile('trying', 'mp3');
-
+            // SoundPlayer.playSoundFile('trying', 'mp3');
             try {
-                // play the file tone.mp3
                 setTimeout(() => {
-                    SoundPlayer.playSoundFile('catching', 'mp3');
+                    // SoundPlayer.playSoundFile('catching', 'mp3');
                     setTimeout(() => { 
                         this.props.navigation.navigate('PokemonView', {item: item})
                     },1000);
                 }, 2000)
-                
-               
             } catch (e) {
                 console.log(`cannot play the sound file`, e)
             }
-           
         } catch (e) {
             console.log(`cannot play the sound file`, e)
         }
