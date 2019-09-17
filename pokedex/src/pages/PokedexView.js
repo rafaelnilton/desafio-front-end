@@ -22,7 +22,6 @@ export default class Pokedex extends Component {
         page: 1
     }
 
-
     componentDidMount() {
         this.loadPokemons()
     }
